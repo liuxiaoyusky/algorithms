@@ -2,62 +2,73 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LargestAndSecondLargest {
-    // The Element class will be used to store the original value in the array and all the values compared to it.
-    static class Element{
-        int value;
-        List<Integer> compredValues;
+    //the idea is that we saved the compared value with the original number, because the 2nd largest number has to be in
+    //the compared list of the largest number.
 
-        Element(int value){
-            this.value = value;
-            this.compredValues = new ArrayList<>();
-        }
-    }
-
+    //we then find the largest by a quick sort like search.
     public int[] largestAndSecond (int [] array){
-        //Assumption: array is not null, array.length>=2.
+        //by given assumption, we know array is not null, and array.length >=2
+        //assume no dup
 
-        //convert the original array to Element array
-        Element [] helper = convert(array);
-        //largerLength is the left partition's length containing the larger values after each round of comparison.
-        //largerLength is obviously initiated by the array's length.
-        int largerLength = array.length;
-        //We will terminate when there is only one element left on the larger partition, and it has to be the largest value.
-        //The second largest value is the largest value in its compared values.
-        while(largerLength>1){
-            compareAndSwap(helper,largerLength);
-            largerLength = (largerLength+1)/2;//left length always >= right length
-        }
-        return new int [] {helper[0].value,largest(helper[0].compredValues)};
-    }
+        //convert from int to element
+        Element [] newArray = convert(array);
 
-    private Element[] convert(int[]array){
-        Element[] helper = new Element[array.length];
-        for(int i=0;i<array.length;i++){
-            helper[i] = new Element(array[i]);
-        }
-        return helper;
-    }
 
-    private void compareAndSwap(Element [] array, int n){
-        for(int i = 0;i <n/2;i++){
-            if(array[i].value<array[n-1-i].value){
-                swap(array,i,n-1-i);
+        //find the largest element in [0, serachingSpace)
+        int searchingSpace = array.length;
+
+
+        //keep larger element on right half
+        while(searchingSpace >= 2) {
+            int left = 0;
+            int right = searchingSpace - 1;
+            while(left < right) {
+                if (newArray[left].value > newArray[right].value) {
+                    newArray[left].comparedList.add(newArray[right].value);
+                } else {
+                    swap(newArray,left, right);
+                    newArray[left].comparedList.add(newArray[right].value);
+                }
+                left++;
+                right--;
             }
-            array[i].compredValues.add(array[n-i-1].value);
+            searchingSpace = (searchingSpace + 1) / 2 ;
         }
+
+        Element largest = newArray[0];
+
+        return new int[] {largest.value, findLargest(largest.comparedList)};
     }
 
-    private void swap(Element [] array, int a, int b){
+    private int findLargest(List <Integer> list) {
+        int largest = list.get(0);
+        for (int cur: list) {
+            largest = Math.max(cur,largest);
+        }
+        return largest;
+    }
+
+    private void swap(Element [] array, int a, int b) {
         Element temp = array[a];
         array[a] = array[b];
         array[b] = temp;
     }
 
-    private int largest (List <Integer> list){
-        int largest = list.get(0);
-        for(int cur:list){
-            largest = Math.max(largest,cur);
+    private Element[] convert(int [] array) {
+        Element [] arr = new Element [array.length];
+        for (int i = 0; i < array.length; i++) {
+            arr[i] = new Element(array[i]);
         }
-        return largest;
+        return arr;
+    }
+
+    static class Element {
+        int value;
+        List <Integer> comparedList;
+
+        public Element(int value){
+            this.value = value;
+            comparedList = new ArrayList<>();
+        }
     }
 }

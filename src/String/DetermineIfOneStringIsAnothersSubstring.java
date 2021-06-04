@@ -47,7 +47,7 @@ Examples
         for(int i = 0; i < small.length(); i++){
             hash = moduleHash(hash, large.charAt(i),prime,largePrime);
         }
-        if(hash == targetHash && equals(large, 0 , small)){
+        if(hash == targetHash && check(large, 0 , small)){
             return 0;
         }
 
@@ -57,7 +57,7 @@ Examples
             hash = nonNegative(hash - seed * large.charAt(i-1) % largePrime,largePrime);
             hash = moduleHash(hash,large.charAt(small.length()+i),prime,largePrime);
             //double check hash value and letters since the largePrime is not large enough to promise unique substring with unique hash
-            if(hash == targetHash && equals(large,i,small)){
+            if(hash == targetHash && check(large,i,small)){
                 return i;
             }
         }
@@ -78,26 +78,33 @@ Examples
 //naive solution
     //time: O((large.length()-samll.length())*small.length())
     //space: O(1)
-    public int determineIfOneStringIsAnothersSubstringII(String large, String small) {
-        // assume: not only 26 lower cases letters
-        if(large.length()<small.length()){
-            return -1;
-        }
-        if(small.length() == 0){
-            return 0;
-        }
-
-        for(int i=0; i<=large.length()-small.length();i++){
-            if(equals(large,i,small)){
-                return i;
-            }
-        }
+//input two string; output: index
+//assume large and small not null
+//iterate large string
+//assume large.length = m, small.length = n. Time: O(mn)
+//a faster way is using hash function. assume the strings are only 26 lower letters. Let long code = letter*26^n+letter2*26^n-1+.......
+public int determineIfOneStringIsAnothersSubstringII(String large, String small) {
+    //corner case
+    if (large.length() < small.length()) {
         return -1;
     }
 
-    private boolean equals(String large, int i, String small){
-        for(int j = 0; j<small.length();j++){
-            if(small.charAt(j)!=large.charAt(i+j)){
+    if(small.length() == 0) {
+        return 0;
+    }
+
+    for (int i = 0; i < large.length() - small.length() + 1; i++) {
+        if(check(large,i,small)){
+            return i;
+        }
+    }
+
+    return -1;
+}
+
+    private boolean check(String large, int index, String small){
+        for(int j = 0 ; j < small.length(); j++) {
+            if(large.charAt(index + j) != small.charAt(j)) {
                 return false;
             }
         }
