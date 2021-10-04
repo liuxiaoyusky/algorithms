@@ -19,8 +19,6 @@ public class OddEvenJump {
         int minDiff = Integer.MAX_VALUE;
 
         int curNum = 10;
-        while (curNum <= 10) {
-
-        }
+        return curNum;
     }
 }
