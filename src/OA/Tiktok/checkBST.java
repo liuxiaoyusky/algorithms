@@ -105,6 +105,7 @@ public class checkBST {
 
     public static void main(String [] args) {
         System.out.println(checkBST("(A,B),(A,D)"));
+//        System.out.println("123".substring(0,3));
     }
 }
 
