@@ -1,5 +1,6 @@
 package GoogleOA;
 
+import OA.google.StringOfSubstring;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -8,7 +9,7 @@ class StringOfSubstringTest {
 
     @Test
     void CornerCase() {
-        assertEquals(0,StringOfSubstring.findNumOfStringOfSubstring("abcd",""));
+        assertEquals(0, StringOfSubstring.findNumOfStringOfSubstring("abcd",""));
     }
 
     @Test

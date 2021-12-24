@@ -1,4 +1,4 @@
-package GoogleOA;
+package OA.google;
 /*
 given a string A consisting of N chars an a string b consisting of m chars,
 return the num of a such that b is a substring of consecutive a.
@@ -59,7 +59,7 @@ public class StringOfSubstring {
                     return -1;
                 }
 
-                //start matching from beginning of b
+                //matches part before but find unmatches, have chance and still looking for the first mac
                 if(start) {
                     pointerB = 0;
                     start = false;
