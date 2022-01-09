@@ -1,5 +1,11 @@
 package CrossTrainingIV;
 
+import java.lang.reflect.Array;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.PriorityQueue;
+
 public class SearchInShiftedSortedArrayI {
     //find shift number, covert back to normal array, and do bineary search
     public static int search(int[] array, int target) {
