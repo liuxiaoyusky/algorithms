@@ -1,6 +1,7 @@
 package CrossTrainingII;
 
 public class GetCountArray {
+    //how many elements at right side of array[j] is smaller than array[j]
     public int [] countArray(int [] array) {
         int [] indexArray = initialIndexArray(array);//indices of original array
         int [] countArray = new int[array.length];//ans
@@ -36,10 +37,8 @@ public class GetCountArray {
         int r = mid + 1;
         int cur = left;
         while (l <= mid) {
-            int l_index = helper[l];
-            int r_index = helper[r];
-            if (r > right || array[l_index] <= array[r_index]) {
-                countArray[l_index] += (r - mid - 1);
+            if (r > right || array[helper[l]] <= array[helper[r]]) {
+                countArray[helper[l]] += (r - mid - 1);//on the right, but smaller
                 indexArray[cur++] = helper[l++];
             } else {
                 indexArray[cur++] = helper[r++];
@@ -48,7 +47,7 @@ public class GetCountArray {
     }
 
     private void copyArray(int [] indexArray, int [] helper, int left, int right) {
-        while (left <= right) {
+        while (left < right) {
             helper[left] = indexArray[left];
             left++;
         }

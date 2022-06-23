@@ -60,4 +60,8 @@ public class SearchInShiftedSortedArrayI {
     public static int calculateIndex(int cur, int rightShift, int arrayLength) {
         return (cur + rightShift) % arrayLength;
     }
+
+    public static void main(String [] args) {
+        int ans = search(new int[]{2,3,4}, 3);
+    }
 }
