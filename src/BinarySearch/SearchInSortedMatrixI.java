@@ -27,7 +27,7 @@ public class SearchInSortedMatrixI {
         int left = 0;
         int right = row * col - 1;
 
-        //search until no element in seraching space
+        //search until no element in searching space
         while (left <= right) {
             int mid = left + (right - left) / 2;
             int [] index = findIndex(mid, col);
