@@ -1,5 +1,7 @@
 package Recursion;
 
+import java.util.ArrayList;
+
 public class ReverseLinkedListInPairs {
 
     public LinkedNode reverseInPairs(LinkedNode head) {
@@ -7,6 +9,7 @@ public class ReverseLinkedListInPairs {
         LinkedNode prev=new LinkedNode(0);
         prev.next = head;
         LinkedNode cur = prev;
+        ArrayList<Integer> ans = new ArrayList<>();
 
         //not work when 3 is null
         //while(cur.next!=null||cur.next.next!=null){
