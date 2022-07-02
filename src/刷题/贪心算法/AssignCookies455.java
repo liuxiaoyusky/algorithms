@@ -1,4 +1,7 @@
 package 刷题.贪心算法;
+
+import java.util.Arrays;
+
 /*
 Assume you are an awesome parent and want to give your children some cookies. But, you should give each child at most one cookie.
 Each child i has a greed factor g[i], which is the minimum size of a cookie that the child will be content with; and each cookie j has a size s[j]. If s[j] >= g[i], we can assign the cookie j to the child i, and the child i will be content. Your goal is to maximize the number of your content children and output the maximum number.
@@ -27,5 +30,29 @@ Constraints:
 
  */
 public class AssignCookies455 {
-    //for kid, try the cookie from right to left, if the right most
+    //sort cookies from small to large
+    //sort g from small to large
+    //from left to right, each cookie fit kids from left to right
+    //input: two arrays
+    //output:int max num of kids been fed
+    public int findContentChildren(int[] g, int[] s) {
+        Arrays.sort(g);
+        Arrays.sort(s);
+        int left = 0;
+        int right = 0;
+        int count = 0;
+        //if s[right] < g[left], current cookies cannot fit anyone, right++
+        //otherwise, left++, right++, count++
+        while ( left < g.length && right < s.length) {
+            if (s[right] < g[left]) {
+                right++;
+            } else {
+                left++;
+                right++;
+                count++;
+            }
+        }
+
+        return count;
+    }
 }
