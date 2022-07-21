@@ -1,4 +1,4 @@
-package 刷题;
+package 刷题.哈希表;
 /*
 Given two strings s and t, return true if t is an anagram of s, and false otherwise.
 
