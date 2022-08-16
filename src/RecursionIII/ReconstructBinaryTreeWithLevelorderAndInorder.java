@@ -3,9 +3,52 @@ package RecursionIII;
 import Tree.TreeNode;
 
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 public class ReconstructBinaryTreeWithLevelorderAndInorder {
+    //use a list to seperate current levelOrder element to two while maintain the order
+    public TreeNode reconstructII(int[] inOrder, int[] levelOrder) {
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int i = 0; i < inOrder.length; i++) {
+            map.put(inOrder[i], i);
+        }
+
+        List<Integer> list = new LinkedList<>();
+        for (int num: levelOrder) {
+            list.add(num);
+        }
+
+        return helperII(list, map);
+    }
+
+    private TreeNode helperII(List<Integer> list, Map<Integer, Integer> map) {
+        if (list.size() == 0) {
+            return null;
+        }
+
+        TreeNode root = new TreeNode(list.remove(0));
+        List<Integer> left = new LinkedList<>();
+        List<Integer> right = new LinkedList<>();
+
+        //use inorder index = seperate the list
+        int inIndex = map.get(root.key);
+        for (int num : list) {
+            if (map.get(num) < inIndex) {
+                left.add(num);
+            } else {
+                right.add(num);
+            }
+        }
+
+        root.left = helperII(left, map);
+        root.right = helperII(right, map);
+
+        return root;
+    }
+
+    //-------------------------------------------------------------------
     //go through the in order search range, find the value with most front index in levelOrder
     //make this the current root, split inorder to two parts and continue
     public TreeNode reconstruct(int[] inOrder, int[] levelOrder) {
