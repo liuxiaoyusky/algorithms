@@ -15,57 +15,48 @@ Examples:
     k = 3, The output = { 2, 3, 1, 2, 1, 3 }.
  */
 public class KeepDistanceForIdenticalElements {
-    //do it in dfs
     public static int[] keepDistance(int k) {
-        // Write your solution here.
-        int [] ans = new int [2 * k];
-        boolean [] bool = new boolean[] {false};
-        Set<Integer> set = new HashSet<>();
-        helper(ans, 0, k, set, bool);
-
-        //return ans
-        if (bool[0]) {
-            return ans;
-        } else {
-            return null;
-        }
+        int [] ans = new int[2 * k];
+        Set<Integer> used = new HashSet<>();
+        boolean [] satisfied = new boolean [1];
+        helper(k, used, ans, 0, satisfied);
+        return satisfied[0] ? ans : null;
     }
 
-    private static void helper(int [] ans, int index, int k, Set<Integer> set, boolean [] bool) {
+    private static void helper(int k, Set<Integer> used,int [] ans, int index, boolean [] satisfied) {
         //base case
-        if (set.size() == k) {
-            bool[0] = true;
-            return;
-        } else if (bool[0]) {
+        if (satisfied[0] || index == ans.length) {
+            satisfied[0] = true;
             return;
         }
 
-        //find a int for current index
+        //already filled number
+        if (ans[index] != 0) {
+            helper(k, used, ans, index + 1, satisfied);
+            return;
+        }
+
         for (int i = 1; i <= k; i++) {
-            if (set.contains(i)) {
+            if(used.contains(i)) {
                 continue;
             }
-
-            if (index + 1 + i < (2 * k) && ans[index + 1 + i] == 0) {
+            int nextIndex = i + 1 + index;
+            if (nextIndex < ans.length && ans[nextIndex] == 0) {
                 ans[index] = i;
-                ans[index + 1 + i] = i;
-                int next = index + 1;
-                set.add(i);
-                while (next < (2 * k) && (ans[next] != 0)) {
-                    next++;
-                }
-                helper(ans, next, k, set, bool);
-                if (bool[0]) {
-                    return;
-                }
+                ans[nextIndex] = i;
+                used.add(i);
+                helper(k, used, ans, index + 1, satisfied);
 
-                //back track
-                ans[index] = 0;
-                ans[index + 1 + i] = 0;
-                set.remove(i);
+
+                //backtrack
+                if (!satisfied[0]) {
+                    ans[index] = 0;
+                    ans[nextIndex] = 0;
+                    used.remove(i);
+                } else {
+                    break;
+                }
             }
         }
-
-
     }
 }
