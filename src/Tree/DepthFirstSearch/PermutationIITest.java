@@ -1,10 +1,10 @@
 package Tree.DepthFirstSearch;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 class PermutationIITest {
 
-    @org.junit.jupiter.api.Test 
     public void test() {
         int expected=0;
         int result=1;
