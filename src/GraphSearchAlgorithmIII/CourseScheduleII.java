@@ -11,7 +11,7 @@ public class CourseScheduleII {
         // given no dup, assume valid input
         //corner case
         if (numCourses <= 0 || prerequisites == null) {
-            return new int [Math.max(0,numCourses)];
+            return new int [0];
         }
 
         //build a map as available-pre to see the relations, put the number that doesn't appear in the prerequisites
@@ -51,11 +51,11 @@ public class CourseScheduleII {
 
         //map saves all pairs that a list of all courses that one prerequisite course can fulfill
         //if prerequisite is available, remove the entry, put all things in the list available and into ans
-        int previousIndex = index;
+        int previousIndex = -1;
         while (index <= numCourses - 1) {
             //if not updated(not available to slove)
             if (previousIndex == index) {
-                return new int [numCourses];
+                return new int [0];
             }
             previousIndex = index;
             for (Integer key:relations.keySet()) {
