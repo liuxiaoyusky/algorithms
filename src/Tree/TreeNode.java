@@ -1,12 +1,12 @@
 package Tree;
 
 public class TreeNode {
-    public int key;
+    public Integer key;
     public TreeNode left;
     public TreeNode right;
     public TreeNode parent;//we usually don't use parent pointer
 
-    public TreeNode(int key){
+    public TreeNode(Integer key){
         this.key=key;
     }
 
