@@ -1,6 +1,6 @@
 package Tree.DepthFirstSearch;
 
-import Tree.GraphNode;
+import Tree.General.GraphNode;
 
 import java.util.Deque;
 import java.util.HashMap;

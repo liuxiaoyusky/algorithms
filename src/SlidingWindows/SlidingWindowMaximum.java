@@ -68,6 +68,8 @@ public class SlidingWindowMaximum {
             return this.value < o.value ? 1 : -1;//reverse order
         }
     }
+
+    //time: in worse case: O(nlogn)
     public int [] solution3(int [] nums, int k) {
         if (nums == null || nums.length == 0) {
             return new int [0];
@@ -130,7 +132,7 @@ public class SlidingWindowMaximum {
     }
 
     //use mono stack, poll max in O(1), class 26, next greater element, 直方图问题，largest rectangle of  one in matrix
-
+    //time: O(n)
     public int [] maxSlidingWindow(int [] nums, int k) {
         if (nums == null || nums.length == 0) {
             return new int [] {};
@@ -139,21 +141,21 @@ public class SlidingWindowMaximum {
         int [] result = new int [resultSize];
         Deque<Integer> deque = new ArrayDeque<>();
         for (int fast = 0;  fast < nums.length; fast ++) {
-            //在尾部放入新的value，如果新的value更大，从尾部remove直到从左到右单调递增（实际存的是index）
+            //在尾部放入新的value，如果新的value更大，从尾部remove直到从左到右单调递减（实际存的是index）
             //删
             while (!deque.isEmpty() && nums[fast] > nums[deque.peekLast()]) {
                 deque.pollLast();
             }
             deque.offer(fast);
 
-            //把出界的index删掉
+            //把出界的index删掉(从左开始)
             if (fast >= k) {
                 if (!deque.isEmpty() && deque.peek() == fast - k) {
                     deque.pollFirst();
                 }
             }
 
-            //左边是当前window最值
+            //左边是当前window最大值
             if (fast >= k - 1) {
                 result[fast - k + 1] = nums[deque.peekFirst()];
             }

@@ -88,4 +88,17 @@ public class BuildGraph1 {
             }
         }
     }
+
+    public static void main(String [] args) {
+        String s = "hello";
+        for (int i = 0; i < s.length(); i++) {
+            String a = s.substring(0, i);
+            String b = s.substring(i + 1);
+            String next =  a + b;
+            System.out.println(i);
+            System.out.println("a :" + a);
+            System.out.println("b :" + b);
+            System.out.println("next :" + next);
+        }
+    }
 }

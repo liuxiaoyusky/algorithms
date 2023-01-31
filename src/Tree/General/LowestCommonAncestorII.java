@@ -1,4 +1,7 @@
-package Tree;
+package Tree.General;
+
+import Tree.TreeNode;
+
 /*
 Given two nodes in a binary tree (with parent pointer available), find their lowest common ancestor.
 Assumptions
